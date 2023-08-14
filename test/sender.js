@@ -30,7 +30,7 @@ test('send-response streaming protocol', (t) => {
   };
 
   const machine = {
-    name: "test",
+    name: 'test',
     limits: {
       xmin: 1,
       xmax: 2,
@@ -174,7 +174,7 @@ test('character-counting streaming protocol', (t) => {
   };
 
   const machine = {
-    name: "test",
+    name: 'test',
     limits: {
       xmin: 1,
       xmax: 2,
