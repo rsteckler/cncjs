@@ -16,6 +16,7 @@ import controller from 'app/lib/controller';
 import i18n from 'app/lib/i18n';
 import log from 'app/lib/log';
 import portal from 'app/lib/portal';
+import store from 'app/store';
 import * as WebGL from 'app/lib/three/WebGL';
 import { in2mm } from 'app/lib/units';
 import WidgetConfig from '../WidgetConfig';
@@ -245,7 +246,8 @@ class VisualizerWidget extends PureComponent {
           }
         }));
 
-        controller.command('gcode:load', name, gcode, context, (err, data) => {
+        const machine = store.get('workspace.machineProfile');
+        controller.command('gcode:load', name, gcode, machine, context, (err, data) => {
           if (err) {
             this.setState((state) => ({
               gcode: {

@@ -13,6 +13,7 @@ test('null streaming protocol', (t) => {
   t.end();
 });
 
+
 test('send-response streaming protocol', (t) => {
   const sender = new Sender(SP_TYPE_SEND_RESPONSE);
   t.equal(sender.sp.type, SP_TYPE_SEND_RESPONSE, 'send-response streaming protocol');
@@ -27,7 +28,21 @@ test('send-response streaming protocol', (t) => {
     zmin: -2,
     zmax: 50
   };
-  const ok = sender.load(path.basename(file), content, context);
+
+  const machine = {
+    name: 'test',
+    limits: {
+      xmin: 1,
+      xmax: 2,
+      ymin: 3,
+      ymax: 4,
+      zmin: 5,
+      zmax: 6,
+    },
+    avoidParens: true
+  };
+
+  const ok = sender.load(path.basename(file), content, machine, context);
   t.equal(ok, true, `Failed to load "${file}".`);
 
   t.same(sender.toJSON(), {
@@ -75,6 +90,7 @@ test('send-response streaming protocol', (t) => {
       name: '',
       hold: false,
       holdReason: null,
+      machine: machine,
       context: {},
       gcode: '',
       lines: [],
@@ -124,6 +140,7 @@ test('send-response streaming protocol', (t) => {
   }, 0);
 });
 
+
 test('character-counting streaming protocol', (t) => {
   const sender = new Sender(SP_TYPE_CHAR_COUNTING, {
     bufferSize: 256
@@ -155,7 +172,21 @@ test('character-counting streaming protocol', (t) => {
     zmin: -2,
     zmax: 50
   };
-  const ok = sender.load(path.basename(file), content, context);
+
+  const machine = {
+    name: 'test',
+    limits: {
+      xmin: 1,
+      xmax: 2,
+      ymin: 3,
+      ymax: 4,
+      zmin: 5,
+      zmax: 6,
+    },
+    avoidParens: true
+  };
+
+  const ok = sender.load(path.basename(file), content, machine, context);
   t.equal(ok, true, `Failed to load "${file}".`);
 
   t.same(sender.toJSON(), {
@@ -204,6 +235,7 @@ test('character-counting streaming protocol', (t) => {
       holdReason: null,
       name: '',
       gcode: '',
+      machine: machine,
       context: {},
       lines: [],
       total: 0,
